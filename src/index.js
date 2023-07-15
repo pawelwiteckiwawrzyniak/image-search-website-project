@@ -71,7 +71,7 @@ function handleClickSubmit(e) {
   e.preventDefault();
   if (searchValue == form.searchQuery.value) {
     Notiflix.Notify.info(
-      'For more pictures, scroll down and click "Load more" button'
+      `For more pictures of a ${searchValue}, scroll down and click "Load more" button`
     );
     return;
   }
@@ -85,7 +85,7 @@ function handleClickSubmit(e) {
     lightbox.refresh();
     const rect = gallery.firstElementChild.getBoundingClientRect();
     window.scrollBy({
-      top: rect * 2,
+      top: rect * 10,
       behavior: 'smooth',
     });
   });
@@ -104,7 +104,7 @@ function handleClickLoad(e) {
       lightbox.refresh();
       const rect = gallery.firstElementChild.getBoundingClientRect();
       window.scrollBy({
-        top: rect * 2,
+        top: rect * 10,
         behavior: 'smooth',
       });
     });
@@ -122,7 +122,7 @@ function handleClickLoad(e) {
     lightbox.refresh();
     const rect = gallery.firstElementChild.getBoundingClientRect();
     window.scrollBy({
-      top: rect * 2,
+      top: rect * 10,
       behavior: 'smooth',
     });
   });

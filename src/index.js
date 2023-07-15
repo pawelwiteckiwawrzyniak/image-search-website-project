@@ -29,7 +29,7 @@ function fetchPics() {
   return axios
     .get(`https://pixabay.com/api/?${searchParams}`)
     .then(response => {
-      limit = response.data.totalHits;
+      limit = 100;
       total = response.data.total;
       const imageList = response.data.hits;
       if (imageList.length == 0) {
@@ -103,9 +103,10 @@ function handleClickLoad(e) {
     });
     loadBtn.removeEventListener('click', handleClickLoad);
     loadBtn.addEventListener('click', () => {
-      return Notiflix.Notify.failure(
+      Notiflix.Notify.failure(
         "We're sorry, but you've reached the end of search results."
       );
+      loadBtn.classList.add('hidden');
     });
     return;
   }

@@ -1,3 +1,99 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+}
+
+body {
+  background-color: rgb(230, 210, 158);
+}
+
 .hidden {
   display: none;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+
+.search-form input {
+  width: 30vw;
+  height: 40px;
+  font-size: 30px;
+  font-family: 'Ysabeau SC';
+  padding: 5px 10px 8px;
+  background-color: rgb(241, 237, 227);
+}
+
+button {
+  height: 30px;
+  width: 90px;
+  cursor: pointer;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 14px 6px;
+  font-family: 'Ysabeau SC';
+  font-size: 18px;
+  border-radius: 6px;
+  border: none;
+
+  background: #1d1905;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1),
+    inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5),
+    0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: rgb(255, 255, 255);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.search-form:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2),
+    0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.gallery {
+  font-family: 'Ysabeau SC';
+  font-size: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.photo-card {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  width: 20vw;
+}
+
+.photo-card img {
+  display: flex;
+  transition: transform var(--animation-duration) var(--timing-function);
+  object-fit: cover;
+  height: 300px;
+  width: 20vw;
+}
+
+.info {
+  top: -5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.load-more {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto;
+  font-size: 20px;
 }

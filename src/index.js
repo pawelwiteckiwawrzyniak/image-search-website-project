@@ -13,6 +13,7 @@ let page = 1;
 let perPage = 40;
 let limit = '';
 let numberOfPosts = 40;
+let total = '';
 let searchValue = '';
 
 function fetchPics() {
@@ -29,6 +30,7 @@ function fetchPics() {
     .get(`https://pixabay.com/api/?${searchParams}`)
     .then(response => {
       limit = response.data.totalHits;
+      total = response.data.total;
       const imageList = response.data.hits;
       if (imageList.length == 0) {
         return Notiflix.Notify.failure(
@@ -48,16 +50,16 @@ function renderPics(array) {
         <a href="${largeImageURL}" class="gallery__item"><img src="${webformatURL}" alt="image" loading="lazy"/></a>
         <div class="info">
           <p class="info-item">
-            <b>${likes}</b>
+            <b>Likes: </b>${likes}
           </p>
           <p class="info-item">
-            <b>${views}</b>
+            <b> Views: </b>${views}
           </p>
           <p class="info-item">
-            <b>${comments}</b>
+            <b> Comments: </b>${comments}
           </p>
           <p class="info-item">
-            <b>${downloads}</b>
+            <b> Downloads: </b>${downloads}
           </p>
         </div>
       </div>`;
@@ -81,13 +83,8 @@ function handleClickSubmit(e) {
   fetchPics().then(imageList => {
     renderPics(imageList);
     loadBtn.classList.remove('hidden');
-    Notiflix.Notify.success(`Hooray! We found ${limit} images.`);
+    Notiflix.Notify.success(`Hooray! We found ${total} images.`);
     lightbox.refresh();
-    const rect = gallery.firstElementChild.getBoundingClientRect();
-    window.scrollBy({
-      top: rect * 10,
-      behavior: 'smooth',
-    });
   });
   searchValue = form.searchQuery.value;
 }
@@ -96,17 +93,13 @@ function handleClickLoad(e) {
   numberOfPosts += perPage;
   loadBtn.classList.add('hidden');
   page += 1;
+
   if (numberOfPosts >= limit) {
     perPage = numberOfPosts - limit;
     fetchPics().then(imageList => {
       renderPics(imageList);
       loadBtn.classList.remove('hidden');
       lightbox.refresh();
-      const rect = gallery.firstElementChild.getBoundingClientRect();
-      window.scrollBy({
-        top: rect * 10,
-        behavior: 'smooth',
-      });
     });
     loadBtn.removeEventListener('click', handleClickLoad);
     loadBtn.addEventListener('click', () => {
@@ -116,15 +109,11 @@ function handleClickLoad(e) {
     });
     return;
   }
+
   fetchPics().then(imageList => {
     renderPics(imageList);
     loadBtn.classList.remove('hidden');
     lightbox.refresh();
-    const rect = gallery.firstElementChild.getBoundingClientRect();
-    window.scrollBy({
-      top: rect * 10,
-      behavior: 'smooth',
-    });
   });
 }
 

@@ -7,10 +7,6 @@ body {
   background-color: rgb(230, 210, 158);
 }
 
-.hidden {
-  display: none;
-}
-
 .search-form {
   display: flex;
   justify-content: center;
@@ -96,4 +92,8 @@ button {
   align-items: center;
   margin: 50px auto;
   font-size: 20px;
+}
+
+.hidden {
+  display: none;
 }

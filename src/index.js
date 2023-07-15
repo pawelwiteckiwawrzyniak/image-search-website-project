@@ -71,11 +71,15 @@ function renderPics(array) {
 
 function handleClickSubmit(e) {
   e.preventDefault();
-  if (searchValue == form.searchQuery.value) {
-    Notiflix.Notify.info(
+  if (form.searchQuery.value == '') {
+    return Notiflix.Notify.info(
+      'Type something to get awesome pictures! Pups are always cute!'
+    );
+  }
+  if (searchValue == form.searchQuery.value && searchValue != '') {
+    return Notiflix.Notify.info(
       `For more pictures of a ${searchValue}, scroll down and click "Load more" button`
     );
-    return;
   }
   gallery.innerHTML = '';
   loadBtn.classList.add('hidden');
@@ -90,6 +94,8 @@ function handleClickSubmit(e) {
 }
 
 function handleClickLoad(e) {
+  form.searchQuery.value = searchValue;
+
   numberOfPosts += perPage;
   loadBtn.classList.add('hidden');
   page += 1;

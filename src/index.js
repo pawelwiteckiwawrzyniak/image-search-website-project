@@ -29,7 +29,7 @@ function fetchPics() {
   return axios
     .get(`https://pixabay.com/api/?${searchParams}`)
     .then(response => {
-      limit = 100;
+      limit = response.data.totalHits;
       total = response.data.total;
       const imageList = response.data.hits;
       if (imageList.length == 0) {
@@ -83,7 +83,7 @@ function handleClickSubmit(e) {
   fetchPics().then(imageList => {
     renderPics(imageList);
     loadBtn.classList.remove('hidden');
-    Notiflix.Notify.success(`Hooray! We found ${total} images.`);
+    Notiflix.Notify.success(`Hooray! We found ${limit} images.`);
     lightbox.refresh();
   });
   searchValue = form.searchQuery.value;

@@ -89,6 +89,13 @@ function handleClickSubmit(e) {
     loadBtn.classList.remove('hidden');
     Notiflix.Notify.success(`Hooray! We found ${limit} images.`);
     lightbox.refresh();
+    const { height: cardHeight } =
+      gallery.firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 0.4,
+      behavior: 'smooth',
+    });
   });
   searchValue = form.searchQuery.value;
 }
@@ -106,6 +113,13 @@ function handleClickLoad(e) {
       renderPics(imageList);
       loadBtn.classList.remove('hidden');
       lightbox.refresh();
+      const { height: cardHeight } =
+        gallery.firstElementChild.getBoundingClientRect();
+
+      window.scrollBy({
+        top: cardHeight * 2.55,
+        behavior: 'smooth',
+      });
     });
     loadBtn.removeEventListener('click', handleClickLoad);
     loadBtn.addEventListener('click', () => {
@@ -121,6 +135,13 @@ function handleClickLoad(e) {
     renderPics(imageList);
     loadBtn.classList.remove('hidden');
     lightbox.refresh();
+    const { height: cardHeight } =
+      gallery.firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2.55,
+      behavior: 'smooth',
+    });
   });
 }
 

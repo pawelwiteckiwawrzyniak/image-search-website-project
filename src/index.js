@@ -14,7 +14,7 @@ let limit = '';
 let numberOfPosts = 40;
 let searchValue = '';
 
-function fetchPics() {
+async function fetchPics() {
   const searchParams = new URLSearchParams({
     key: '38272300-1f1fe77aa9d2a1c8673ac9f3e',
     q: form.searchQuery.value,
@@ -25,19 +25,15 @@ function fetchPics() {
     per_page: perPage,
   });
 
-  return axios
-    .get(`https://pixabay.com/api/?${searchParams}`)
-    .then(response => {
-      limit = response.data.totalHits;
-      const imageList = response.data.hits;
-      if (imageList.length == 0) {
-        return Notiflix.Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      }
-      return imageList;
-    })
-    .catch(error => console.error(error));
+  const response = await axios.get(`https://pixabay.com/api/?${searchParams}`);
+  const imageList = await response.data.hits;
+  limit = await response.data.totalHits;
+  if (imageList.length == 0) {
+    return Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  }
+  return imageList;
 }
 
 function renderPics(array) {
@@ -87,17 +83,19 @@ function handleClickSubmit(e) {
   gallery.innerHTML = '';
   page = 1;
 
-  fetchPics().then(imageList => {
-    renderPics(imageList);
-    Notiflix.Notify.success(`Hooray! We found ${limit} images.`);
-    lightbox.refresh();
-    const { height: cardHeight } =
-      gallery.firstElementChild.getBoundingClientRect();
-    window.scrollBy({
-      top: cardHeight * 0.4,
-      behavior: 'smooth',
-    });
-  });
+  fetchPics()
+    .then(imageList => {
+      renderPics(imageList);
+      Notiflix.Notify.success(`Hooray! We found ${limit} images.`);
+      lightbox.refresh();
+      const { height: cardHeight } =
+        gallery.firstElementChild.getBoundingClientRect();
+      window.scrollBy({
+        top: cardHeight * 0.4,
+        behavior: 'smooth',
+      });
+    })
+    .catch(error => console.error(error));
 
   searchValue = form.searchQuery.value;
 }
@@ -115,10 +113,12 @@ function handleLoad(e) {
     return;
   }
 
-  fetchPics().then(imageList => {
-    renderPics(imageList);
-    lightbox.refresh();
-  });
+  fetchPics()
+    .then(imageList => {
+      renderPics(imageList);
+      lightbox.refresh();
+    })
+    .catch(error => console.error(error));
 }
 
 function handleInfiniteScroll() {

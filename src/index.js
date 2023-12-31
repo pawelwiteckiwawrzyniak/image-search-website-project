@@ -139,7 +139,7 @@ function handleClickLoad(e) {
       gallery.firstElementChild.getBoundingClientRect();
 
     window.scrollBy({
-      top: cardHeight * 2.55,
+      top: cardHeight * 2.4,
       behavior: 'smooth',
     });
   });

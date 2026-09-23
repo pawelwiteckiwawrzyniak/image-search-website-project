@@ -125,9 +125,18 @@ function handleInfiniteScroll() {
   const endOfPage =
     window.innerHeight + window.scrollY >= document.body.offsetHeight;
 
-  if (endOfPage) {
-    handleLoad();
-  }
+  fetchPics().then(imageList => {
+    renderPics(imageList);
+    loadBtn.classList.remove('hidden');
+    lightbox.refresh();
+    const { height: cardHeight } =
+      gallery.firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2.4,
+      behavior: 'smooth',
+    });
+  });
 }
 
 submitBtn.addEventListener('click', handleClickSubmit);

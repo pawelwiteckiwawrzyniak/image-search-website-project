@@ -4,7 +4,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const form = document.querySelector('form');
-const submitBtn = document.querySelector('button[type=submit]');
+const submitBtn = document.getElementById("search-btn");
 const gallery = document.querySelector('.gallery');
 const lightbox = new SimpleLightbox('.gallery__item', { sourceAttr: 'href' });
 
